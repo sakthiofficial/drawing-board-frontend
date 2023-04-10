@@ -58,6 +58,8 @@ function DrawingApp({ menu, nav, imgurl, cmt2, loc2, papername, id }) {
                     "Content-type": "application/json"
                 }
             }).then((dt) => {
+                navigate("/mypapers")
+
                 if (dt.status == 200) {
                     navigate("/mypapers")
                 } else {
