@@ -38,7 +38,7 @@ function Box({ img, name, date, month, day, id }) {
                 <h4>{name}</h4>
             </div>
             <div className="commentbox_date">
-                <p>{`${month} ${date} ${day}`}</p>
+                <p>{`${date}/${month + 1}/2023`}</p>
 
             </div>
         </div>
