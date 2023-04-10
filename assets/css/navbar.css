@@ -1,0 +1,62 @@
+.App {
+  display: flex;
+  min-height: 100vh;
+  font-family: "Ubuntu", sans-serif;
+  gap: 1.4rem;
+}
+.App_navbar {
+  background: rgba(96, 209, 208, 0.12);
+  left: 0px;
+  top: 0px;
+  border-radius: 0px;
+  position: relative;
+}
+.App_navbar::after {
+  content: "";
+  position: absolute;
+  background-color: #C4E6E6;
+  top: 0;
+  width: 100%;
+  height: 2rem;
+}
+.App_navbar ul {
+  margin-top: 2rem;
+  padding: 1rem;
+  list-style: none;
+  text-transform: capitalize;
+}
+.App_navbar ul .home_menu {
+  border-bottom: 1.5px solid #1a2424;
+  padding: 1rem 0px;
+}
+.App_navbar ul li {
+  color: #1a2424;
+  letter-spacing: 1px;
+}
+.App_navbar ul a {
+  text-decoration: none;
+  color: #1a2424;
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+  width: 150px;
+}
+.App_navbar ul a svg {
+  margin: 0px 5px;
+}
+.App_navbar .icon_bar li {
+  margin-bottom: 2rem;
+}
+.App_navbar .App_navbar_switch {
+  position: absolute;
+  top: 32px;
+  right: -18px;
+  background-color: #1a2424;
+  cursor: pointer;
+  border-radius: 2px;
+  z-index: 100;
+}
+.App_navbar .App_navbar_switch svg {
+  color: #C4E6E6;
+  font-size: 1.1rem;
+}/*# sourceMappingURL=navbar.css.map */

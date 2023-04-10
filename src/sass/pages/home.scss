@@ -1,0 +1,200 @@
+@use "../utilites/colors.scss" as clr;
+
+.home {
+    width: 100%;
+
+    &_menus {
+        display: flex;
+        justify-content: end;
+
+        ul {
+            display: flex;
+            justify-content: space-around;
+            background-color: clr.$secondary-color ;
+
+
+            li {
+                list-style: none;
+                padding: 1px 8px;
+                margin: 5px 5px;
+                padding: 0px 15px;
+                cursor: pointer;
+                transition: background-color 100ms;
+                border-radius: 5px;
+                color: clr.$text-color;
+
+                &:hover {
+                    background-color: white;
+                }
+            }
+
+        }
+    }
+
+    &_board {
+
+        margin-top: 0.9rem;
+        position: relative;
+
+        canvas {
+            // width: 100%;
+            // height: 25rem;
+            // border: 1px solid clr.$text-color;
+            // border-radius: 7px;
+            // position: relative;
+
+        }
+
+
+        &_command {
+            position: absolute;
+            left: 212px;
+            top: 163px;
+            color: clr.$text-color;
+            z-index: 100;
+
+
+
+            &-input {
+                background-color: clr.$text-color;
+
+                border-radius: 5px;
+                width: 10rem;
+                height: 5rem;
+                overflow: hidden;
+                aspect-ratio: 3/2;
+                padding: 5px 5px;
+
+                input {
+                    width: 95%;
+                    padding-bottom: 2.5rem;
+                    padding-top: 2px;
+                    border: none;
+                    outline: none;
+                    background-color: transparent;
+                    color: #fff;
+                    font-size: 10px;
+                }
+
+                .save {
+                    color: clr.$secondary-color;
+                    margin-right: 0.5rem;
+                }
+
+                .delete {
+                    color: #F7685B;
+                }
+
+                .btns {
+                    text-align: end;
+                }
+            }
+
+            p {
+                background-color: transparent;
+                color: #fff;
+                font-size: 10px;
+            }
+
+        }
+
+        &_location {
+            position: absolute;
+            top: 0;
+            color: #F7685B;
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
+    &_tools {
+        position: relative;
+        padding: 1rem 0rem;
+
+
+        &_pencil {
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 1rem 0px;
+
+            &_color {
+                display: flex;
+                gap: 1rem;
+
+                .range_slider {
+                    color: clr.$surprise_color;
+                    width: 20rem;
+
+
+                }
+
+
+
+                input {
+                    background: linear-gradient(to right, #ff0000, #ff9900, #ffff00, #00ff00, #00ffff, #0000ff, #9900ff, #ff00ff);
+                    outline: none;
+                    border: none;
+                    border-radius: 15rem;
+                    overflow: hidden;
+                    padding: 1rem 1rem;
+                    width: 2rem;
+                }
+
+            }
+
+            &_eraser {}
+
+            &_btns {
+                button {
+                    margin: 0px 0.7rem;
+                }
+
+                .save_btn {
+                    background-color: clr.$surprise_color;
+
+                    &:hover {
+                        background-color: clr.$surprise_color;
+
+                    }
+                }
+
+                .cancel_btn {
+                    background-color: transparent;
+                    border: 1.5px solid clr.$surprise_color;
+                    color: clr.$surprise_color;
+
+                    &:hover {
+                        background-color: transparent;
+                        border: 1.5px solid clr.$surprise_color;
+                        color: clr.$surprise_color;
+                    }
+                }
+            }
+        }
+
+        &_comment {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+
+        }
+
+        .icon {
+            background-color: clr.$theme-color;
+            margin: 0px 0.5rem;
+
+            svg {
+                font-size: 1.7rem;
+            }
+        }
+    }
+
+
+
+}

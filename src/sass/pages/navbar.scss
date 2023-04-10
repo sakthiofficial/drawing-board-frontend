@@ -1,0 +1,89 @@
+@use "../utilites/colors.scss" as clr;
+
+.App {
+    display: flex;
+    min-height: 100vh;
+    font-family: 'Ubuntu', sans-serif;
+    gap: 1.4rem;
+
+    // 56px
+    &_navbar {
+        background: clr.$theme-color;
+        left: 0px;
+        top: 0px;
+        border-radius: 0px;
+        position: relative;
+
+
+        &::after {
+            content: "";
+            position: absolute;
+            background-color: clr.$secondary-color;
+            top: 0;
+            width: 100%;
+            height: 2rem;
+
+        }
+
+        ul {
+            margin-top: 2rem;
+            padding: 1rem;
+            list-style: none;
+            text-transform: capitalize;
+
+
+
+            .home_menu {
+                border-bottom: 1.5px solid clr.$text-color;
+                padding: 1rem 0px;
+            }
+
+            li {
+                color: clr.$text-color;
+                letter-spacing: 1px;
+
+
+
+            }
+
+            a {
+                text-decoration: none;
+                color: clr.$text-color;
+                display: flex;
+                align-items: center;
+                margin-bottom: 2rem;
+
+                width: 150px;
+
+                svg {
+                    margin: 0px 5px;
+                }
+
+            }
+
+
+
+
+        }
+
+        .icon_bar li {
+            margin-bottom: 2rem;
+        }
+
+        .App_navbar_switch {
+            position: absolute;
+            top: 32px;
+            right: -18px;
+            background-color: clr.$text-color;
+            cursor: pointer;
+            border-radius: 2px;
+            z-index: 100;
+
+            svg {
+                color: clr.$secondary-color;
+                font-size: 1.1rem;
+            }
+        }
+
+    }
+}

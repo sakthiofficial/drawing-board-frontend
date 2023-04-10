@@ -1,0 +1,138 @@
+.home {
+  width: 100%;
+}
+.home_menus {
+  display: flex;
+  justify-content: end;
+}
+.home_menus ul {
+  display: flex;
+  justify-content: space-around;
+  background-color: #C4E6E6;
+}
+.home_menus ul li {
+  list-style: none;
+  padding: 1px 8px;
+  margin: 5px 5px;
+  padding: 0px 15px;
+  cursor: pointer;
+  transition: background-color 100ms;
+  border-radius: 5px;
+  color: #1a2424;
+}
+.home_menus ul li:hover {
+  background-color: white;
+}
+.home_board {
+  margin-top: 0.9rem;
+  position: relative;
+}
+.home_board_command {
+  position: absolute;
+  left: 212px;
+  top: 163px;
+  color: #1a2424;
+  z-index: 100;
+}
+.home_board_command-input {
+  background-color: #1a2424;
+  border-radius: 5px;
+  width: 10rem;
+  height: 5rem;
+  overflow: hidden;
+  aspect-ratio: 3/2;
+  padding: 5px 5px;
+}
+.home_board_command-input input {
+  width: 95%;
+  padding-bottom: 2.5rem;
+  padding-top: 2px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: #fff;
+  font-size: 10px;
+}
+.home_board_command-input .save {
+  color: #C4E6E6;
+  margin-right: 0.5rem;
+}
+.home_board_command-input .delete {
+  color: #F7685B;
+}
+.home_board_command-input .btns {
+  text-align: end;
+}
+.home_board_command p {
+  background-color: transparent;
+  color: #fff;
+  font-size: 10px;
+}
+.home_board_location {
+  position: absolute;
+  top: 0;
+  color: #F7685B;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.home_tools {
+  position: relative;
+  padding: 1rem 0rem;
+}
+.home_tools_pencil {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem 0px;
+}
+.home_tools_pencil_color {
+  display: flex;
+  gap: 1rem;
+}
+.home_tools_pencil_color .range_slider {
+  color: #87898B;
+  width: 20rem;
+}
+.home_tools_pencil_color input {
+  background: linear-gradient(to right, #ff0000, #ff9900, #ffff00, #00ff00, #00ffff, #0000ff, #9900ff, #ff00ff);
+  outline: none;
+  border: none;
+  border-radius: 15rem;
+  overflow: hidden;
+  padding: 1rem 1rem;
+  width: 2rem;
+}
+.home_tools_pencil_btns button {
+  margin: 0px 0.7rem;
+}
+.home_tools_pencil_btns .save_btn {
+  background-color: #87898B;
+}
+.home_tools_pencil_btns .save_btn:hover {
+  background-color: #87898B;
+}
+.home_tools_pencil_btns .cancel_btn {
+  background-color: transparent;
+  border: 1.5px solid #87898B;
+  color: #87898B;
+}
+.home_tools_pencil_btns .cancel_btn:hover {
+  background-color: transparent;
+  border: 1.5px solid #87898B;
+  color: #87898B;
+}
+.home_tools_comment {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.home_tools .icon {
+  background-color: rgba(96, 209, 208, 0.12);
+  margin: 0px 0.5rem;
+}
+.home_tools .icon svg {
+  font-size: 1.7rem;
+}/*# sourceMappingURL=home.css.map */
