@@ -28,7 +28,6 @@ function App() {
 
             <Link to="/" className='home_menu'><HouseIcon /> <li >home</li></Link>
             <Link to="/mypapers"><DescriptionIcon /><li>mypapers</li></Link>
-            <Link to="/history"><HistoryIcon /><li>history</li></Link>
 
 
 

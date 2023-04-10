@@ -51,7 +51,7 @@ function DrawingApp({ menu, nav, imgurl, cmt2, loc2, papername, id }) {
             }
         }
         if (id) {
-            fetch(`${API}/drawboard/:id`, {
+            fetch(`${API}/drawboard/${id}`, {
                 method: "PUT",
                 body: JSON.stringify(data),
                 headers: {
