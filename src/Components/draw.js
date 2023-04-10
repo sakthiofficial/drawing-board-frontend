@@ -66,6 +66,8 @@ function DrawingApp({ menu, nav, imgurl, cmt2, loc2, papername, id }) {
                     alert("Something wrong")
                 }
             })
+            navigate("/mypapers")
+
         } else {
 
 
