@@ -13,7 +13,7 @@ import { Comment } from './Comment';
 import { Commentbox } from './Commentbox';
 import { Location } from './Location';
 
-function DrawingApp({ menu, nav, imgurl, cmt2, loc2, papername }) {
+function DrawingApp({ menu, nav, imgurl, cmt2, loc2, papername, id }) {
     // console.log(papername);
 
     let [clr, setclr] = useState("black");
@@ -25,7 +25,7 @@ function DrawingApp({ menu, nav, imgurl, cmt2, loc2, papername }) {
     let [cmtsave, setcmtsave] = useState(false);
     let [location, setlocation] = useState([...loc2]);
     let [name, setname] = useState(papername)
-    let imgurl2
+    let [imgurl2, setimgurl2] = useState(imgurl)
     console.log(cmt);
 
     let navigate = useNavigate()
@@ -38,6 +38,7 @@ function DrawingApp({ menu, nav, imgurl, cmt2, loc2, papername }) {
 
     function sendData() {
         let date = new Date()
+        console.log(imgurl2);
         let data = {
             image: imgurl2,
             comments: cmt,
@@ -49,7 +50,21 @@ function DrawingApp({ menu, nav, imgurl, cmt2, loc2, papername }) {
                 month: date.getMonth()
             }
         }
-        console.log(data);
+        if (id) {
+            fetch(`${API}/drawboard/:id`, {
+                method: "PUT",
+                body: JSON.stringify(data),
+                headers: {
+                    "Content-type": "application/json"
+                }
+            }).then((dt) => {
+                if (dt.status == 200) {
+                    navigate("/mypapers")
+                } else {
+                    alert("This name already used")
+                }
+            })
+        }
         fetch(`${API}/drawboard`, {
             method: "POST",
             body: JSON.stringify(data),
@@ -117,7 +132,7 @@ function DrawingApp({ menu, nav, imgurl, cmt2, loc2, papername }) {
             context.beginPath();
             setcanvaArr([...canvaArr, context.getImageData(0, 0, 1000, 400)]);
 
-            imgurl2 = canvas.toDataURL();
+            setimgurl2(canvas.toDataURL())
 
             // canvaArr.push(context.getImageData(0, 0, 1000, 400));
             // console.log(imgurl);

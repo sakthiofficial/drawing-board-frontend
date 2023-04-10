@@ -33,7 +33,7 @@ export function Paper({ nav }) {
                 </ul>
             </div>
 
-            {data ? <DrawingApp menu={menu} imgurl={data.image} nav={nav} papername={data.name} cmt2={data.comments} loc2={data.locations} /> : null}
+            {data ? <DrawingApp menu={menu} id={id} imgurl={data.image} nav={nav} papername={data.name} cmt2={data.comments} loc2={data.locations} /> : null}
         </div>
 
     );
