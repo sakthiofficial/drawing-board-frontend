@@ -61,23 +61,26 @@ function DrawingApp({ menu, nav, imgurl, cmt2, loc2, papername, id }) {
                 if (dt.status == 200) {
                     navigate("/mypapers")
                 } else {
+                    alert("Something wrong")
+                }
+            })
+        } else {
+
+
+            fetch(`${API}/drawboard`, {
+                method: "POST",
+                body: JSON.stringify(data),
+                headers: {
+                    "Content-type": "application/json"
+                }
+            }).then((dt) => {
+                if (dt.status == 200) {
+                    navigate("/mypapers")
+                } else {
                     alert("This name already used")
                 }
             })
         }
-        fetch(`${API}/drawboard`, {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: {
-                "Content-type": "application/json"
-            }
-        }).then((dt) => {
-            if (dt.status == 200) {
-                navigate("/mypapers")
-            } else {
-                alert("This name already used")
-            }
-        })
     }
     useEffect(() => {
         canvas = canvasRef.current;
