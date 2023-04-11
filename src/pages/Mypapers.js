@@ -26,7 +26,7 @@ export function Mypapers() {
 }
 
 function Box({ img, name, date, month, day, id }) {
-    // console.log(img, name, date, month, day);
+    console.log(img, name, date, month, day);
 
     let navigate = useNavigate()
     return (

@@ -13,7 +13,7 @@ import { Comment } from './Comment';
 import { Commentbox } from './Commentbox';
 import { Location } from './Location';
 
-function DrawingApp({ menu, nav, imgurl, cmt2, loc2, papername, id, canvasWidth, save, Canvadelete, canvasHeight, canvaspdf }) {
+function DrawingApp({ menu, nav, setsave, imgurl, cmt2, loc2, papername, id, canvasWidth, save, Canvadelete, canvasHeight, canvaspdf }) {
 
     let [clr, setclr] = useState("black");
     let [width, setwidth] = useState(1)
@@ -41,72 +41,86 @@ function DrawingApp({ menu, nav, imgurl, cmt2, loc2, papername, id, canvasWidth,
     let context;
 
 
-    function sendData() {
-        let date = new Date()
 
-
-        // return
-        let data
-        try {
-            data = {
-                image: imgurl2,
-                comments: cmt,
-                locations: location,
-                name,
-                width: canvas.width,
-                height: canvas.height,
-                pdf: pdfUrl,
-                date: {
-                    date: date.getDate(),
-                    day: date.getDay(),
-                    month: date.getMonth()
-                }
-            }
-        } catch (err) {
-            alert("SOmething wrong")
-        }
-        if (id) {
-            fetch(`${API}/drawboard/${id}`, {
-                method: "PUT",
-                body: JSON.stringify(data),
-                headers: {
-                    "Content-type": "application/json"
-                }
-            }).then((dt) => {
-                navigate("/mypapers")
-
-                if (dt.status == 200) {
-                    navigate("/mypapers")
-                } else {
-                    alert("Something wrong")
-                }
-            })
-            navigate("/mypapers")
-
-        } else {
-
-
-            fetch(`${API}/drawboard`, {
-                method: "POST",
-                body: JSON.stringify(data),
-                headers: {
-                    "Content-type": "application/json"
-                }
-            }).then((dt) => {
-                if (dt.status == 200) {
-                    navigate("/mypapers")
-                } else {
-                    alert("This name already used")
-                }
-            })
-        }
-    }
 
     useEffect(() => {
         canvas = canvasRef.current;
         context = canvas.getContext('2d');
+        function sendData() {
+
+            if (save) {
+
+                let date = new Date()
+
+                console.log(canvas);
+                // return
+                let data
+                try {
+                    data = {
+                        image: imgurl2,
+                        comments: cmt,
+                        locations: location,
+                        name,
+                        width: canvas.width,
+                        height: canvas.height,
+                        pdf: pdfUrl,
+                        date: {
+                            date: date.getDate(),
+                            day: date.getDay(),
+                            month: date.getMonth()
+                        }
+                    }
+                    if (id) {
+                        fetch(`${API}/drawboard/${id}`, {
+                            method: "PUT",
+                            body: JSON.stringify(data),
+                            headers: {
+                                "Content-type": "application/json"
+                            }
+                        }).then((dt) => {
+                            navigate("/mypapers")
+
+                            if (dt.status == 200) {
+                                setsave(false)
+                                navigate("/mypapers")
+                            } else {
+                                setsave(false)
+
+                                alert("Something wrong")
+                            }
+                        })
+                        navigate("/mypapers")
+
+                    } else {
 
 
+                        fetch(`${API}/drawboard`, {
+                            method: "POST",
+                            body: JSON.stringify(data),
+                            headers: {
+                                "Content-type": "application/json"
+                            }
+                        }).then((dt) => {
+                            if (dt.status == 200) {
+                                setsave(false)
+
+                                navigate("/mypapers")
+                            } else {
+                                setsave(false)
+
+                                alert("This name already used")
+                            }
+                        })
+                    }
+                } catch (err) {
+                    setsave(false)
+
+                    alert("SOmething wrong")
+                }
+
+            }
+        }
+        sendData()
         var imageObj1 = new Image();
         imageObj1.src = imgurl
         imageObj1.onload = function () {
@@ -165,7 +179,7 @@ function DrawingApp({ menu, nav, imgurl, cmt2, loc2, papername, id, canvasWidth,
             // img saver
         }
 
-    }, [isDrawing, width, canvas, context, pdfUrl, clr, menu, imgurl]);
+    }, [isDrawing, width, canvas, context, pdfUrl, clr, menu, save, imgurl]);
     useEffect(() => {
         if (canvasHeight && canvasWidth) {
             canvas.width = canvasWidth;
@@ -175,7 +189,7 @@ function DrawingApp({ menu, nav, imgurl, cmt2, loc2, papername, id, canvasWidth,
     }, [])
     useEffect(() => {
         if (save) {
-            sendData()
+            // sendData()
         }
         if (Canvadelete) {
             if (id) {
@@ -323,7 +337,7 @@ function DrawingApp({ menu, nav, imgurl, cmt2, loc2, papername, id, canvasWidth,
                             <div className="home_tools_pencil_btns">
 
 
-                                <Button className='save_btn' onClick={() => sendData()} variant='contained'>save</Button>
+                                <Button className='save_btn' onClick={() => setsave(true)} variant='contained'>save</Button>
                                 <Button className='cancel_btn' variant='contained' onClick={() => navigate("/mypapers")}>cancel</Button>
 
                             </div>

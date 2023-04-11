@@ -27,7 +27,7 @@ export function Home({ nav }) {
                     <li onClick={() => setmenu("more")} style={menu == "more" ? { backgroundColor: "whitesmoke", position: "relative" } : null}><MoreVertIcon />
                         {menu == "more" ? <div className="drop_down">
                             <ul>
-                                <li onClick={() => setsave(true)}>save</li>
+                                <li onClick={() => setsave(!save)}>save</li>
                                 <li onClick={() => setCanvadelete(true)}>delete</li>
                             </ul>
                         </div> : null}
@@ -35,7 +35,7 @@ export function Home({ nav }) {
 
                 </ul>
             </div>
-            <DrawingApp menu={menu} papername={"Unsaved"} save={save} setsave={setsave} Canvadelete={Canvadelete} setCanvadelete={setCanvadelete} nav={nav} cmt2={[]} loc2={([])} />
+            <DrawingApp menu={menu} setsave={setsave} papername={"Unsaved"} save={save} setsave={setsave} Canvadelete={Canvadelete} setCanvadelete={setCanvadelete} nav={nav} cmt2={[]} loc2={([])} />
 
         </div>
 
