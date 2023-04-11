@@ -12,6 +12,8 @@ import { API } from '../api_endpoint';
 import { Comment } from './Comment';
 import { Commentbox } from './Commentbox';
 import { Location } from './Location';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function DrawingApp({ menu, nav, setsave, imgurl, cmt2, loc2, papername, id, canvasWidth, save, Canvadelete, canvasHeight, canvaspdf }) {
     // console.log(canvaspdf);
@@ -49,6 +51,8 @@ function DrawingApp({ menu, nav, setsave, imgurl, cmt2, loc2, papername, id, can
         function sendData() {
             setimgurl2(canvas.toDataURL())
 
+
+
             if (save) {
 
                 let date = new Date()
@@ -79,18 +83,35 @@ function DrawingApp({ menu, nav, setsave, imgurl, cmt2, loc2, papername, id, can
                                 "Content-type": "application/json"
                             }
                         }).then((dt) => {
-                            navigate("/mypapers")
 
                             if (dt.status == 200) {
-                                setsave(false)
+                                toast.success('Successfully Saved', {
+                                    position: "top-center",
+                                    autoClose: 2000,
+                                    hideProgressBar: false,
+                                    closeOnClick: true,
+                                    pauseOnHover: true,
+                                    draggable: true,
+                                    progress: undefined,
+                                    theme: "light",
+                                });
                                 navigate("/mypapers")
-                            } else {
-                                setsave(false)
 
-                                alert("Something wrong")
+
+                            } else {
+
+                                toast.error('Something wrong', {
+                                    position: "top-center",
+                                    autoClose: 2000,
+                                    hideProgressBar: false,
+                                    closeOnClick: true,
+                                    pauseOnHover: true,
+                                    draggable: true,
+                                    progress: undefined,
+                                    theme: "light",
+                                });
                             }
                         })
-                        navigate("/mypapers")
 
                     } else {
 
@@ -105,11 +126,31 @@ function DrawingApp({ menu, nav, setsave, imgurl, cmt2, loc2, papername, id, can
                             if (dt.status == 200) {
                                 setsave(false)
 
+
+                                toast.success('Successfully Saved', {
+                                    position: "top-center",
+                                    autoClose: 2000,
+                                    hideProgressBar: false,
+                                    closeOnClick: true,
+                                    pauseOnHover: true,
+                                    draggable: true,
+                                    progress: undefined,
+                                    theme: "light",
+                                });
                                 navigate("/mypapers")
                             } else {
                                 setsave(false)
 
-                                alert("This name already used")
+                                toast.error('This name as already used', {
+                                    position: "top-center",
+                                    autoClose: 2000,
+                                    hideProgressBar: false,
+                                    closeOnClick: true,
+                                    pauseOnHover: true,
+                                    draggable: true,
+                                    progress: undefined,
+                                    theme: "light",
+                                });
                             }
                         })
                     }
@@ -199,7 +240,18 @@ function DrawingApp({ menu, nav, setsave, imgurl, cmt2, loc2, papername, id, can
             method: "DELETE"
         }).then((val) => {
             if (val.status == 200) {
+                toast.success('Successfully Deleted', {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
                 navigate("/mypapers")
+
             }
         })
     }
@@ -335,7 +387,7 @@ function DrawingApp({ menu, nav, setsave, imgurl, cmt2, loc2, papername, id, can
                             <div className="home_tools_pencil_btns">
 
 
-                                <Button className='save_btn' onClick={() => setsave(true)} variant='contained'>save</Button>
+                                <Button className='save_btn' onClick={() => setsave(false)} variant='contained'>save</Button>
                                 <Button className='cancel_btn' variant='contained' onClick={() => navigate("/mypapers")}>cancel</Button>
 
                             </div>
@@ -367,6 +419,7 @@ function DrawingApp({ menu, nav, setsave, imgurl, cmt2, loc2, papername, id, can
                 }
 
 
+                {/* Same as */}
             </div>
 
         </>

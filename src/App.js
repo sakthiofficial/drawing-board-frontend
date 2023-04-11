@@ -11,6 +11,7 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useState } from 'react';
 import { Paper } from './pages/Paper';
+import { ToastContainer } from 'react-toastify';
 
 
 function App() {
@@ -51,6 +52,8 @@ function App() {
 
         </Routes>
       </div>
+      <ToastContainer />
+
     </BrowserRouter>
 
   );
