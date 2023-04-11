@@ -14,7 +14,7 @@ import { Commentbox } from './Commentbox';
 import { Location } from './Location';
 
 function DrawingApp({ menu, nav, setsave, imgurl, cmt2, loc2, papername, id, canvasWidth, save, Canvadelete, canvasHeight, canvaspdf }) {
-
+    // console.log(canvaspdf);
     let [clr, setclr] = useState("black");
     let [width, setwidth] = useState(1)
     const [isDrawing, setIsDrawing] = useState(false);
@@ -47,12 +47,12 @@ function DrawingApp({ menu, nav, setsave, imgurl, cmt2, loc2, papername, id, can
         canvas = canvasRef.current;
         context = canvas.getContext('2d');
         function sendData() {
+            setimgurl2(canvas.toDataURL())
 
             if (save) {
 
                 let date = new Date()
 
-                console.log(canvas);
                 // return
                 let data
                 try {
@@ -70,6 +70,7 @@ function DrawingApp({ menu, nav, setsave, imgurl, cmt2, loc2, papername, id, can
                             month: date.getMonth()
                         }
                     }
+
                     if (id) {
                         fetch(`${API}/drawboard/${id}`, {
                             method: "PUT",
