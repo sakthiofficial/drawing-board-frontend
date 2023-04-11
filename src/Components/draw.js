@@ -113,19 +113,13 @@ function DrawingApp({ menu, nav, setsave, imgurl, cmt2, loc2, papername, id, can
                         })
                     }
                 } catch (err) {
-                    setsave(false)
-
                     alert("SOmething wrong")
                 }
 
             }
         }
         sendData()
-        var imageObj1 = new Image();
-        imageObj1.src = imgurl
-        imageObj1.onload = function () {
-            context.drawImage(imageObj1, 0, 0);
-        }
+
 
 
         canvas.addEventListener('mousedown', startDrawing);
@@ -184,7 +178,6 @@ function DrawingApp({ menu, nav, setsave, imgurl, cmt2, loc2, papername, id, can
         if (canvasHeight && canvasWidth) {
             canvas.width = canvasWidth;
             canvas.height = canvasHeight;
-            setPdfUrl(canvaspdf)
         }
     }, [])
     useEffect(() => {
@@ -212,8 +205,7 @@ function DrawingApp({ menu, nav, setsave, imgurl, cmt2, loc2, papername, id, can
     useEffect(() => {
         const loadPDF = async () => {
             if (pdfUrl) {
-                const canvas = canvasRef.current;
-                const context = canvas.getContext('2d');
+
 
                 // Load the PDFJS library asynchronously
                 const pdfjsLib = await import('pdfjs-dist/webpack');
@@ -239,6 +231,11 @@ function DrawingApp({ menu, nav, setsave, imgurl, cmt2, loc2, papername, id, can
             }
         };
         loadPDF();
+        var imageObj1 = new Image();
+        imageObj1.src = imgurl
+        imageObj1.onload = function () {
+            context.drawImage(imageObj1, 0, 0);
+        }
     }, [pdfUrl])
     function undo() {
 
