@@ -59,4 +59,33 @@
 .App_navbar .App_navbar_switch svg {
   color: #C4E6E6;
   font-size: 1.1rem;
+}
+.App .drop_down {
+  position: absolute;
+  right: 0;
+  margin: 0.5rem 0px;
+  z-index: 100;
+  box-shadow: 1px 0px 1px 1px rgb(175, 171, 171);
+  border: 1px solid;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.App .drop_down ul {
+  background-color: white !important;
+  display: flex;
+  flex-direction: column;
+}
+.App .drop_down ul li {
+  border-bottom: 1px solid;
+  border-radius: 0;
+  padding: 0.3rem 0.5rem;
+}
+.App .drop_down ul li:hover {
+  color: #C4E6E6;
+}
+.App .drop_down li {
+  border-bottom: 1px dotted white;
+}
+.App .drop_down li:last-child {
+  border: none;
 }/*# sourceMappingURL=navbar.css.map */

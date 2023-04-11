@@ -13,8 +13,7 @@ import { Comment } from './Comment';
 import { Commentbox } from './Commentbox';
 import { Location } from './Location';
 
-function DrawingApp({ menu, nav, imgurl, cmt2, loc2, papername, id }) {
-    // console.log(papername);
+function DrawingApp({ menu, nav, imgurl, cmt2, loc2, papername, id, canvasWidth, save, Canvadelete, canvasHeight, canvaspdf }) {
 
     let [clr, setclr] = useState("black");
     let [width, setwidth] = useState(1)
@@ -26,7 +25,13 @@ function DrawingApp({ menu, nav, imgurl, cmt2, loc2, papername, id }) {
     let [location, setlocation] = useState([...loc2]);
     let [name, setname] = useState(papername)
     let [imgurl2, setimgurl2] = useState(imgurl)
-    console.log(cmt);
+    const [pdfUrl, setPdfUrl] = useState(null);
+
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        const fileUrl = URL.createObjectURL(file);
+        setPdfUrl(fileUrl);
+    };
 
     let navigate = useNavigate()
     const canvasRef = useRef(null);
@@ -38,17 +43,27 @@ function DrawingApp({ menu, nav, imgurl, cmt2, loc2, papername, id }) {
 
     function sendData() {
         let date = new Date()
-        console.log(imgurl2);
-        let data = {
-            image: imgurl2,
-            comments: cmt,
-            locations: location,
-            name,
-            date: {
-                date: date.getDate(),
-                day: date.getDay(),
-                month: date.getMonth()
+
+
+        // return
+        let data
+        try {
+            data = {
+                image: imgurl2,
+                comments: cmt,
+                locations: location,
+                name,
+                width: canvas.width,
+                height: canvas.height,
+                pdf: pdfUrl,
+                date: {
+                    date: date.getDate(),
+                    day: date.getDay(),
+                    month: date.getMonth()
+                }
             }
+        } catch (err) {
+            alert("SOmething wrong")
         }
         if (id) {
             fetch(`${API}/drawboard/${id}`, {
@@ -86,9 +101,11 @@ function DrawingApp({ menu, nav, imgurl, cmt2, loc2, papername, id }) {
             })
         }
     }
+
     useEffect(() => {
         canvas = canvasRef.current;
         context = canvas.getContext('2d');
+
 
         var imageObj1 = new Image();
         imageObj1.src = imgurl
@@ -123,7 +140,7 @@ function DrawingApp({ menu, nav, imgurl, cmt2, loc2, papername, id }) {
                 context.lineTo(offsetX, offsetY);
 
                 context.stroke();
-                context.save()
+                // context.save()
 
             }
 
@@ -132,6 +149,8 @@ function DrawingApp({ menu, nav, imgurl, cmt2, loc2, papername, id }) {
 
 
         }
+
+
 
         function stopDrawing() {
             setIsDrawing(false);
@@ -146,9 +165,67 @@ function DrawingApp({ menu, nav, imgurl, cmt2, loc2, papername, id }) {
             // img saver
         }
 
-    }, [isDrawing, width, clr, menu, imgurl]);
+    }, [isDrawing, width, canvas, context, pdfUrl, clr, menu, imgurl]);
+    useEffect(() => {
+        if (canvasHeight && canvasWidth) {
+            canvas.width = canvasWidth;
+            canvas.height = canvasHeight;
+            setPdfUrl(canvaspdf)
+        }
+    }, [])
+    useEffect(() => {
+        if (save) {
+            sendData()
+        }
+        if (Canvadelete) {
+            if (id) {
+                deleteData()
+            } else {
+                navigate("/mypapers")
+            }
 
+        }
+    }, [save, Canvadelete])
+    function deleteData() {
+        fetch(`${API}/drawboard/${id}`, {
+            method: "DELETE"
+        }).then((val) => {
+            if (val.status == 200) {
+                navigate("/mypapers")
+            }
+        })
+    }
+    useEffect(() => {
+        const loadPDF = async () => {
+            if (pdfUrl) {
+                const canvas = canvasRef.current;
+                const context = canvas.getContext('2d');
 
+                // Load the PDFJS library asynchronously
+                const pdfjsLib = await import('pdfjs-dist/webpack');
+
+                // Load the PDF file
+                pdfjsLib.getDocument(pdfUrl).promise.then((pdf) => {
+                    // Get the first page of the PDF
+                    pdf.getPage(1).then((page) => {
+                        const viewport = page.getViewport({ scale: 1 });
+
+                        // Set the canvas size to the PDF page size
+                        canvas.width = viewport.width;
+                        canvas.height = viewport.height;
+                        console.log(viewport.width, viewport.height);
+
+                        // Render the PDF page on the canvas
+                        page.render({
+                            canvasContext: context,
+                            viewport: viewport,
+                        });
+                    });
+                });
+            }
+        };
+        loadPDF();
+    }, [pdfUrl])
     function undo() {
 
         if (canvaArr.length <= 1) {
@@ -182,6 +259,7 @@ function DrawingApp({ menu, nav, imgurl, cmt2, loc2, papername, id }) {
     }
 
 
+
     return (
         <>
             <div className="name" style={{ position: "absolute", top: 2, left: nav ? 500 + 40 : 500, cursor: "pointer" }}>
@@ -202,6 +280,8 @@ function DrawingApp({ menu, nav, imgurl, cmt2, loc2, papername, id }) {
 
 
                 />
+
+
                 {cmt.map((val, ind) =>
                     <Comment ind={ind} setcmtsave={setcmtsave} setcomment={setcmt} arr={cmt} x={val.x} y={val.y} menu={menu} text={val.text} />
                 )}
@@ -209,6 +289,10 @@ function DrawingApp({ menu, nav, imgurl, cmt2, loc2, papername, id }) {
 
             </div>
             {/* <img src={imgurl} alt="" /> */}
+            <div className="pdf_uploder">
+                <input type="file" onChange={handleFileChange} />
+
+            </div>
 
             <div className={menu == "pin" ? "home_tools pin" : "home_tools"} >
                 {

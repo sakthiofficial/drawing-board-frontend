@@ -20,6 +20,10 @@ export function Paper({ nav }) {
 
     let [menu, setmenu] = useState("comment")
 
+    let [canvas, setcanvas] = useState([])
+    let [save, setsave] = useState(false)
+    let [Canvadelete, setCanvadelete] = useState(false)
+
 
     return (
         <div className="home" >
@@ -27,13 +31,21 @@ export function Paper({ nav }) {
                 <ul>
                     <li onClick={() => setmenu("comment")} style={menu == "comment" ? { backgroundColor: "whitesmoke" } : null}><CommentIcon /></li>
                     <li onClick={() => setmenu("pencil")} style={menu == "pencil" ? { backgroundColor: "whitesmoke" } : null}><BorderColorIcon /></li>
-                    <li onClick={() => setmenu("pin")} style={menu == "pin" ? { backgroundColor: "whitesmoke" } : null}><FmdGoodIcon /></li>
-                    <li onClick={() => setmenu("more")} style={menu == "more" ? { backgroundColor: "whitesmoke" } : null}><MoreVertIcon /></li>
+                    <li onClick={() => setmenu("pin")} style={menu == "pin" ? { backgroundColor: "whitesmoke" } : null}><FmdGoodIcon />
+                    </li>
+                    <li onClick={() => setmenu("more")} style={menu == "more" ? { backgroundColor: "whitesmoke", position: "relative" } : null}><MoreVertIcon />
+                        {menu == "more" ? <div className="drop_down">
+                            <ul>
+                                <li onClick={() => setsave(true)}>save</li>
+                                <li onClick={() => setCanvadelete(true)}>delete</li>
+                            </ul>
+                        </div> : null}
+                    </li>
 
                 </ul>
             </div>
 
-            {data ? <DrawingApp menu={menu} id={id} imgurl={data.image} nav={nav} papername={data.name} cmt2={data.comments} loc2={data.locations} /> : null}
+            {data ? <DrawingApp menu={menu} id={id} imgurl={data.image} save={save} Canvadelete={Canvadelete} nav={nav} canvaspdf={data.pdf} papername={data.name} canvasWidth={data.width} canvasHeight={data.height} cmt2={data.comments} loc2={data.locations} /> : null}
         </div>
 
     );
