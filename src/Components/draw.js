@@ -386,7 +386,7 @@ function DrawingApp({ menu, nav, setsave, imgurl, cmt2, loc2, papername, id, can
                             <div className="home_tools_pencil_btns">
 
 
-                                <Button className='save_btn' onClick={() => setsave(!save)} variant='contained'>save</Button>
+                                <Button className='save_btn' onClick={() => setsave(true)} variant='contained'>save</Button>
                                 <Button className='cancel_btn' variant='contained' onClick={() => navigate("/mypapers")}>cancel</Button>
 
                             </div>
